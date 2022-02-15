@@ -1,0 +1,35 @@
+
+<form id="chat" class="form form-inline">
+  <select class="form-control" ng-model="ctrl.group_id" ng-change="ctrl.refreshChats()">
+     <option ng-repeat="group in ctrl.groups" value="{{group._id}}" ng-bind="group.name"></option>
+   </select>
+ </form>
+
+<table class="table table-stripped">
+  <tr>
+  <th>First Name</th>
+  <th>Last Name</th>
+  <th>Date</th>
+  <th>Content</th>
+  </tr>        
+  <tr ng-repeat="chat in ctrl.chats">
+  <td ng-bind="chat.senderFirstName"></td>
+  <td ng-bind="chat.senderLastName"></td>
+  <td ng-bind="chat.when"></td>
+  <td ng-bind="chat.content"></td>
+  </tr>
+</table>
+
+<form id="sender" class="form form-inline">      
+    <select class="form-control" ng-model="ctrl.chat.group_id">
+      <option selected="selected" ng-repeat="group in ctrl.groups" value="{{group._id}}" ng-bind="group.name"></option>
+    </select>
+    <select class="form-control" ng-model="ctrl.chat.sender_id">
+      <option selected="selected" ng-repeat="person in ctrl.persons" value="{{person._id}}" ng-bind="person.firstName+' '+person.lastName" ng-if="person.group_id == ctrl.chat.group_id"></option>
+    </select>
+  <input class="form-control" type="text" placeholder="Message" ng-model="ctrl.chat.content"/>
+  <button class="btn btn-default" ng-click="ctrl.new()" ng-disabled="!ctrl.isChatDataCorrect()">Send</button>
+</form><br/>
+
+
+
